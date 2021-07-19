@@ -8,9 +8,6 @@
 // @namespace https://greasyfork.org/users/119655
 // ==/UserScript==
 
-var active = false;
-var interval = void 0;
-
 var elem = document.createElement("p");
 var element = document.getElementById("mainTitleText");
 element.style.color = "aliceblue";
@@ -20,8 +17,6 @@ element.appendChild(elem);
 
 elem.appendChild(node);
 element.appendChild(elem);
-
-console.log(player.dead)
 
 function Log() {
         this.info = (str, args = []) => this.log('lolihub info', str, args);
@@ -59,10 +54,13 @@ menu.innerHTML = (
     '<br><br><br> ' +
     '<fieldset id="ab"><legend>Aimbot</legend><br><br>Activate: F<br><br><br>Deactivate: G<br><br></fieldset> ' + //Aimbot
     '<br><br><hr><br> ' +
-    '<fieldset id="ab"><legend>Fat Avatar</legend><br><br>Activate: <input type="checkbox" id="fa" onclick="e()"><br><br><br>Deactivate: B<br><br></fieldset>' + //Fat Avatar
+    '<fieldset id="ab"><legend>Fat Avatar</legend><br><br>Activate: H<br><br><br>Deactivate: B<br><br></fieldset>' + //Fat Avatar
     ''
 );
 document.documentElement.appendChild(menu);
+
+var active = false;
+var interval = void 0;
 
 var overall = document.querySelector('input[id="fa"]');
 
@@ -75,9 +73,9 @@ function activate(event) {
       showNotification('LoliHub - Aimbot activated')
       player.name = localStorage.userName + " [LoliHub]";
   }
-  if(document.getElementById('fa').checked) {
+  if(event.keyCode === 72) {
   showNotification('LoliHub - Speed hack activated')
-  player.health = 20000000000000;
+  player.health = 5000;
   }
 }
 
