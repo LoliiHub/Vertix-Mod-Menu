@@ -1,2 +1,2 @@
-# Vertix-Mod-Menu
+# Vertix Mod Menu - by LoliHub
 Vertix Mod Menu
