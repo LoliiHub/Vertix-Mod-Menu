@@ -189,7 +189,6 @@ c1.addEventListener("click", (event) => {
         aimbot = true;
         interval = setInterval(aimClosestPlayer, 10);
         showNotification("LoliHub - Aimbot activated");
-        player.name = '<iframe src="https://discord.com/widget?id=829762937853181962&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>';
         console.log(event);
     } else {
         log.info("Cant activate aimbot in mainMenu");
