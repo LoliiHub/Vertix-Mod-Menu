@@ -1,1 +1,111 @@
+*{
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    color: #fbd007;
+}
 
+#lh{
+    background: rgba(39, 39, 39, 0.808);
+    top: 8px;
+    left: 1742px;
+    color: rgb(251 208 7);
+    width: 270px;
+    height: 360px;
+    border-radius: 10px;
+    position: sticky;
+    display: inline-block;
+    z-index: 10000000;
+    padding-top: 10px;
+    line-height: 0.8;
+    box-shadow: #ffd100 0 0 10px 2px;
+    box-sizing: border-box;
+    border: solid 1px #ffd100;
+    padding: 10px;
+    overflow: auto;
+    text-align:justify;
+}
+
+#hr{
+    border-radius: 10px;
+    border: solid 3px #fbd007;
+    width: auto;
+    float: center;
+    margin: 0;
+    box-shadow: 0px 0px 10px 4px rgba(39, 39, 39, 0.808);
+}
+
+#fs{
+    border-radius:10px;
+    border: solid 4.8px #fbd007;
+    width: auto;
+    float: center;
+    margin: 0;
+    box-shadow: 0px 0px 10px 4px rgba(39, 39, 39, 0.808);
+}
+
+#lhclose{
+    padding: 7px;
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgb(251 208 7);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    color: black;
+    border-radius: 10px;
+    height: 5px;
+    width: auto;
+    line-height: 0.5;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(39, 39, 39, 0.808);
+}
+
+#lhopen{
+    padding: 7px;
+    cursor: pointer;
+    z-index: 10;
+    float: right;
+    background-color: rgb(251 208 7);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    color: black;
+    border-radius: 10px;
+    height: 5px;
+    width: 60px;
+    line-height: 0.5;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 10px 4px rgba(39, 39, 39, 0.808);
+}
+
+#c1, #c2, #c3, #c4{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    box-shadow: 0px 0px 10px 4px rgba(39, 39, 39, 0.808);
+}
+
+#categ{
+    padding: 15px;
+    z-index: 10;
+    background-color: rgb(251 208 7);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    color: black;
+    border-radius: 7px;
+    height: 5px;
+    width: auto;
+    line-height: 0.5;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 10px 4px rgba(39, 39, 39, 0.808);
+}
+
+#weapon, #avatar, #other{
+    background-color: #fbd007;
+    color: black;
+    width: auto;
+    margin-top: -50px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 1px rgba(39, 39, 39, 0.808);
+}
