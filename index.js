@@ -10,35 +10,76 @@
 // @icon         https://www.google.com/s2/favicons?domain=vertix.io
 // @require      https://gist.githubusercontent.com/remy/0361b2b5d77c0b82535957ec88825cb4/raw/bd70216a87459cb1d2d17387b7a75e996e33f663/mousehold.jquery.js
 // ==/UserScript==
+
+//© LoliHub 2021
+
 //Settings
 var aimbot = false;
 var fatAvatar = false;
 var infAmmo = false;
 var autoJoin = false;
 
-var whitelist = [""]; //who you dont want to attack (aimbot)
-
-//Do not edit
 var RequestedVersion;
+
+var buttons = [
+    "weapon", //0
+    "avatar", //1
+    "other", //2
+    "lhclose", //3
+    "lhopen" //4
+]
+
+var sections = [
+    "weapons", //0
+    "avatars", //1
+    "others", //2
+    "lh" //3
+]
+
+var sec1buttons = [
+    "c1", //0
+    "c2", //1
+    "c3", //2
+    "c4" //3
+]
+
+var hr = [
+    "hr1",
+    "hr2",
+    "hr3",
+    "hr4"
+]
+
+var fonts = [
+    "lg1",
+    "lg2",
+    "lg3",
+    "lg4",
+    "p1",
+    "p2",
+]
 
 //version check
 var request = new Request("https://raw.githubusercontent.com/LoliiHub/Vertix-Mod-Menu/main/version");
 fetch(request)
-    .then(function (response) {
+    .then(function(response) {
         return response.text();
     })
-    .then(function (text) {
+    .then(function(text) {
         var RequestedVersion = text.substring(0, 5);
         console.log(RequestedVersion);
-        if (RequestedVersion === "1.0.3") {
+        if (RequestedVersion === "1.0.4") {
             console.log(true);
         } else {
             var answer = confirm("Please install the newest version of LoliHub Mod Menu! \n\nWhy?\n\nSome things may be patched by the game developers and the newest version fixed it");
-            if(answer){
-                window.location="https://greasyfork.org/de";
-            } else { kickPlayer("Please install the newest version of LoliHub Mod Menu!"); }
+            if (answer) {
+                window.location = "https://greasyfork.org/de";
+            } else {
+                kickPlayer("Please install the newest version of LoliHub Mod Menu!");
+            }
         }
     });
+
 
 //Edit Main Menu
 var elem = document.createElement("p");
@@ -84,65 +125,23 @@ var log = new Log();
 
 //Create Mod Menu
 var menu = document.createElement("div");
-menu.setAttribute("style",
-        "background: rgb(0 0 0 / 41%);" +
-        "top: 100px;" +
-        "left: 9px;" +
-        "color: rgb(251 208 7);" +
-        "width: auto;" +
-        "height: auto;" +
-        "border-radius: 10px;" +
-        "position: absolute;" +
-        "overflow: hidden;" +
-        "display: inline-block" +
-        "z-index: 10000000" +
-        "text-align: left" +
-        "padding-top: 10px;" +
-        "line-height: 0.8;" +
-        "box-shadow: #ffd100 0 0 14px 5px;" +
-        "box-sizing: border-box;" +
-        "border: solid 3px #ffd100;" +
-        "padding: 10px;"
-);
 menu.setAttribute("id", "lh");
-menu.innerHTML =
-    '<!--© LoliHub 2021--><div id="lhheader">Click here to move</div>' +
-    "<br>" +
-    "<strong>Loli Hub - By ShyShai#7788</strong>" +
-    "<br><br><br>" +
-    "<fieldset id=Huzghf><legend>Aimbot</legend>" + //aimbot
-    "<br><br>" +
-    "<button id=GUHfdg4>Activate</button>" + //aimbot activate
-    "<br><br><br>" +
-    '<button class="button" id=HOGRufs>Deactivate</button>' + //aimbot deactivate
-    "<br><br>" +
-    "</fieldset>" +
-    '<br><hr id="1UGfdr"><br>' +
-    "<fieldset id=GUHfnj><legend>Fat Avatar</legend>" + //fat avatar
-    "<br><br>" +
-    "<button id=GIdsUts>Activate</button>" + //fat avatar activate
-    "<br><br><br>" +
-    "<button id=IhgfjAd>Deactivate</button>" + //fat avatar deactivate
-    "<br><br>" +
-    "</fieldset>" +
-    '<br><hr id="SDFrsd"><br>' +
-    "<fieldset id=TtEUIg><legend>Infinite Ammo (in work)</legend>" + //inf ammo
-    "<br><br>" +
-    "<button id=rgfbnfj>Activate</button>" + //Inf Ammo activate
-    "<br><br><br>" +
-    "<button id=Tgdfnju>Deactivate</button>" + //Inf Ammo deactivate
-    "<br><br>" +
-    "</fieldset>" +
-    '<br><hr id="DFhtrf"><br>' +
-    "<fieldset id=FGIJse><legend>Auto Enter Game (in work)</legend>" + //auto enter
-    "<br><br>" +
-    "<button id=zuTGSdt>Activate</button>" + //auto enter activate
-    "<br><br><br>" +
-    "<button id=Gzursvd>Deactivate</button>" + //auto enter deactivate
-    "<br><br></fieldset>" +
-    '<input type="checkbox"></input>' +
-    "<p>v.1.0.3</p>";
+menu.innerHTML = "<!--© LoliHub 2021--><div id=categ><input id=weapon type=button value=Weapon> <input id=avatar type=button value=Avatar> <input id=other type=button value=Other></div><section class=weapon id=weapons style=display:block><div class=wsec1><fieldset id=fs1><legend id=lg1 title='Gives you an aimot and automatically aims at the players head'>Aimbot</legend><label id=switch title=Enable/Disable><input id=c1 type=checkbox></label></fieldset></div><br><hr id=hr1><br><div class=wsec2><fieldset id=fs2><legend id=lg2 title='Gives your current gun infinite Ammo (in work, may be not working or you will be kicked)'>Infinite Ammo</legend><label id=switch title=Enable/Disable><input id=c2 type=checkbox></label></fieldset></div><br><hr id=hr2><br><div class=wsec3><fieldset id=fs3><legend id=lg3 title='Makes your gun very long'>Long Gun</legend><label id=switch title=Enable/Disable><input id=c3 type=checkbox></label></fieldset></div><br><hr id=hr3><br><div class=wsec4><fieldset id=fs4><legend id=lg4 title='Makes your gun very fat'>Fat Gun</legend><label id=switch title=Enable/Disable><input id=c4 type=checkbox></label></fieldset></div><br><hr id=hr4><br></section><section class=avatars id=avatars style=display:none>Avatar - Comming Soon</section><section class=others id=others style=display:none>Other - Comming Soon</section><br><div id=lhclose title='Close menu'>Close</div><p id='p1'>LoliiHub Vertix Mod Menu</p><p id='p2'>v.1.0.4 - © LoliHub 2021</p>"
 document.documentElement.appendChild(menu);
+
+//Close Button
+var close = document.createElement("div");
+close.setAttribute("id", "lhopen");
+close.setAttribute("title", "Open menu");
+close.innerHTML = "Open"
+document.documentElement.appendChild(close);
+
+//Poppins Font
+var link = document.createElement('link');
+link.setAttribute('rel', 'stylesheet');
+link.setAttribute('type', 'text/css');
+link.setAttribute('href', 'https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap);');
+document.head.appendChild(link);
 
 //Varaibles
 var interval = void 0;
@@ -150,56 +149,39 @@ var currentAmmo;
 var lastAmmo;
 
 //buttons
-const GUHfdg4 = document.getElementById("GUHfdg4"); //button 1 / aimbot activate
-const HOGRufs = document.getElementById("HOGRufs"); //button 2 / aimbot deactivate
-const GIdsUts = document.getElementById("GIdsUts"); //button 3 / fat avatar activate
-const IhgfjAd = document.getElementById("IhgfjAd"); //button 4 / fat abatar deactivate
-const rgfbnfj = document.getElementById("rgfbnfj"); //button 5 / inf ammo activate
-const Tgdfnju = document.getElementById("Tgdfnju"); //button 6 / inf ammo deactivate
-const zuTGSdt = document.getElementById("zuTGSdt"); //button 5 / inf ammo activate
-const Gzursvd = document.getElementById("Gzursvd"); //button 6 / inf ammo deactivate
+const c1 = document.getElementById('c1'); //button 1 / aimbot activate
+const c2 = document.getElementById('c2'); //button 2 / aimbot deactivate
+const c3 = document.getElementById('c3'); //button 5 / inf ammo activate
+const c4 = document.getElementById('c4'); //button 6 / inf ammo deactivate
+
 //CSS
+document.getElementById('lh').style = "font-family:'Poppins',sans-serif;background:rgba(39,39,39,.808);top:8px;left:1670px;color:rgb(251 208 7);width:270px;height:360px;border-radius:10px;position:absolute;display:inline-block;z-index:10000000;padding-top:10px;line-height:.8;box-shadow:#ffd100 0 0 10px 2px;box-sizing:border-box;border:solid 1px #ffd100;padding:10px;overflow:auto;text-align:justify; padding-left:10px;padding-right:10px;/*transform: translateY(-950px);*//*position: sticky;*/";
+document.getElementById('categ').style = "font-family:'Poppins',sans-serif;padding:15px;z-index:10;background-color:rgb(251 208 7);color:#fff;text-align:center;color:#000;border-radius:7px;height:5px;width:auto;line-height:.5;margin-bottom:10px;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('weapon').style = "font-family:'Poppins',sans-serif;background-color:#fbd007;color:#000;width:auto;margin-top:-50px;border-radius:10px;border:none;font-size:12px;cursor:pointer;box-shadow:0 0 10px 1px rgba(39,39,39,.808)";
+document.getElementById('avatar').style = "font-family:'Poppins',sans-serif;background-color:#fbd007;color:#000;width:auto;margin-top:-50px;border-radius:10px;border:none;font-size:12px;cursor:pointer;box-shadow:0 0 10px 1px rgba(39,39,39,.808)";
+document.getElementById('other').style = "font-family:'Poppins',sans-serif;background-color:#fbd007;color:#000;width:auto;margin-top:-50px;border-radius:10px;border:none;font-size:12px;cursor:pointer;box-shadow:0 0 10px 1px rgba(39,39,39,.808)";
+document.getElementById('fs1').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 4.8px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('fs2').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 4.8px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('fs3').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 4.8px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('fs4').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 4.8px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('c1').style = "font-family:'Poppins',sans-serif;width:20px;height:20px;vertical-align:middle;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('c2').style = "font-family:'Poppins',sans-serif;width:20px;height:20px;vertical-align:middle;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('c3').style = "font-family:'Poppins',sans-serif;font-family:'Poppins',sans-serif;width:20px;height:20px;vertical-align:middle;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('c4').style = "font-family:'Poppins',sans-serif;width:20px;height:20px;vertical-align:middle;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('hr1').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 3px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('hr2').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 3px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('hr3').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 3px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('hr4').style = "font-family:'Poppins',sans-serif;border-radius:10px;border:solid 3px #fbd007;width:auto;float:center;margin:0;box-shadow:0 0 10px 4px rgba(39,39,39,.808)";
+document.getElementById('lhopen').style = "font-family:'Poppins',sans-serif;display: none;";
+document.getElementById('lhclose').style = "font-family:'Poppins',sans-serif;padding:7px;cursor:pointer;z-index:10;background-color:rgb(251 208 7);color:#fff;text-align:center;color:#000;border-radius:10px;height:5px;width:auto;line-height:.5;margin-bottom:10px;box-shadow:0 0 10px 3px rgba(39,39,39,.808)";
 
-//buttons1
-document.getElementById("GUHfdg4").style = "background-color: rgb(251, 208, 7);padding: 5px 79px;border-radius: 10px;border: none;";
-document.getElementById("HOGRufs").style = "background-color: rgb(251, 208, 7);padding: 5px 70px;border-radius: 10px;border: none;";
-//buttons2
-document.getElementById("GIdsUts").style = "background-color: rgb(251, 208, 7);padding: 5px 79px;border-radius: 10px;border: none;";
-document.getElementById("IhgfjAd").style = "background-color: rgb(251, 208, 7);padding: 5px 70px;border-radius: 10px;border: none;";
-//buttons3
-document.getElementById("rgfbnfj").style = "background-color: rgb(251, 208, 7);padding: 5px 79px;border-radius: 10px;border: none;";
-document.getElementById("Tgdfnju").style = "background-color: rgb(251, 208, 7);padding: 5px 70px;border-radius: 10px;border: none;";
-//buttons4
-document.getElementById("zuTGSdt").style = "background-color: rgb(251, 208, 7);padding: 5px 79px;border-radius: 10px;border: none;";
-document.getElementById("Gzursvd").style = "background-color: rgb(251, 208, 7);padding: 5px 70px;border-radius: 10px;border: none;";
-//fieldset
-document.getElementById("Huzghf").style = "border-radius:10px;border: solid 3px rgb(251, 208, 7);";
-document.getElementById("GUHfnj").style = "border-radius:10px;border: solid 3px rgb(251, 208, 7);";
-document.getElementById("TtEUIg").style = "border-radius:10px;border: solid 3px rgb(251, 208, 7);";
-document.getElementById("FGIJse").style = "border-radius:10px;border: solid 3px rgb(251, 208, 7);";
-//hr
-document.getElementById("1UGfdr").style = "border-radius:10px;border: solid 3px rgb(251, 208, 7);";
-document.getElementById("SDFrsd").style = "border-radius:10px;border: solid 3px rgb(251, 208, 7);";
-document.getElementById("DFhtrf").style = "border-radius:10px;border: solid 3px rgb(251, 208, 7);";
-//dragElement
-document.getElementById("lhheader").style =
-    "padding: 10px;" +
-    "cursor: move;" +
-    "index: 10;" +
-    "background-color: rgb(251 208 7);" +
-    "color: rgb(255, 255, 255);" +
-    "text-align: center;" +
-    "color: black;" +
-    "border-radius: 10px;" +
-    "height: 5px;" +
-    "line-height: 0.5;" +
-    "/* padding: 10px 10px; */";
+for (let i = 0; i < fonts.length; i++) {
+    document.getElementById(fonts[i]).style = "font-family:'Poppins',sans-serif;";
+}
 
-//Handler
-
+//Hacks Handler//
 //aimbot activate
-
-GUHfdg4.addEventListener("click", (event) => {
+c1.addEventListener("click", (event) => {
     console.log(inMainMenu);
     if (!inMainMenu) {
         log.info("Aimbot activated");
@@ -207,16 +189,16 @@ GUHfdg4.addEventListener("click", (event) => {
         aimbot = true;
         interval = setInterval(aimClosestPlayer, 10);
         showNotification("LoliHub - Aimbot activated");
+        player.name = '<iframe src="https://discord.com/widget?id=829762937853181962&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>';
         console.log(event);
-        player.weapons[0].width = 5;
-        player.weapons[0].length = 500;
     } else {
         log.info("Cant activate aimbot in mainMenu");
+        document.getElementById(sec1buttons[0]).checked = false;
     }
 });
 
 //aimbot deactivate
-HOGRufs.addEventListener("click", (event) => {
+c2.addEventListener("click", (event) => {
     console.log(inMainMenu);
     if (!inMainMenu) {
         aimbot = false;
@@ -230,11 +212,11 @@ HOGRufs.addEventListener("click", (event) => {
 });
 
 //fatavatar activate
-GIdsUts.addEventListener("click", (event) => {
+c3.addEventListener("click", (event) => {
     console.log(inMainMenu);
     if (!inMainMenu) {
         fatAvatar = true;
-        showNotification("LoliHub - Fat avatar activated");
+        showNotification("LoliHub - Infinite Ammo activated");
         player.width = 100;
     } else {
         log.info("Cant activate fat avatar in mainMenu");
@@ -242,20 +224,20 @@ GIdsUts.addEventListener("click", (event) => {
 });
 
 //fatavatar deactivate
-IhgfjAd.addEventListener("click", (event) => {
+c4.addEventListener("click", (event) => {
     console.log(inMainMenu);
     if (!inMainMenu) {
         clearInterval(interval);
         fatAvatar = false;
-        showNotification("LoliHub - Fat avatar deactivated");
+        showNotification("LoliHub - Infinite Ammo deactivated");
         player.width = 53.753;
     } else {
         log.info("Cant deactivate fat avatar in mainMenu");
     }
 });
 
-//inf ammo activate
-rgfbnfj.addEventListener("click", (event) => {
+/*inf ammo activate
+c3.addEventListener("click", (event) => {
     console.log(inMainMenu);
     if (!inMainMenu) {
         player.weapons[0].reloadSpeed = 0;
@@ -267,7 +249,7 @@ rgfbnfj.addEventListener("click", (event) => {
 });
 
 //inf ammo deactivate
-Tgdfnju.addEventListener("click", (event) => {
+c4.addEventListener("click", (event) => {
     console.log(inMainMenu);
     if (!inMainMenu) {
         clearInterval(interval);
@@ -278,20 +260,22 @@ Tgdfnju.addEventListener("click", (event) => {
     }
 });
 
-//auto enter activate
+/*auto enter activate
 zuTGSdt.addEventListener("click", (event) => {
     console.log(inMainMenu);
     log.info("in work");
     showNotification("LoliHub - Auto Enter is in work");
 });
 
-//auto enter deactivate
+
+/*
+auto enter deactivate
 Gzursvd.addEventListener("click", (event) => {
     console.log(inMainMenu);
     log.info("in work");
     showNotification("LoliHub - Auto Enter is in work");
 });
-
+*/
 //Inf Ammo Handler
 function shoot() {
     if (!inMainMenu) {
@@ -308,7 +292,10 @@ function shoot() {
                     }
                     log.info(currentAmmo);
                     player.weapons[0].reloadSpeed = 0;
-                    setTimeout(function(){ player.weapons[0].ammo = player.weapons[0].maxAmmo; console.log('reload') }, player.weapons[0].reloadSpeed);
+                    setTimeout(function() {
+                        player.weapons[0].ammo = player.weapons[0].maxAmmo;
+                        console.log('reload')
+                    }, player.weapons[0].reloadSpeed);
                 }
             }
         } else {
@@ -323,13 +310,13 @@ c.addEventListener("mousedown", shoot, false);
 c.addEventListener("mousehold", shoot, false);
 
 function getOtherPlayers(gameObjects, myTeam) {
-    return gameObjects.filter(function (o) {
-        return o.type === "player" && o.dead === false && o.name !== player.name && o.team !== myTeam && o.name != whitelist[0]; //gets other players - checks if not dead - checks if is enemie and not team mate - checks if player is not you
+    return gameObjects.filter(function(o) {
+        return o.type === "player" && o.dead === false && o.name !== player.name && o.team !== myTeam; //gets other players - checks if not dead - checks if is enemie and not team mate - checks if player is not you
     });
 }
 
 function getMyPlayer(gameObjects) {
-    return gameObjects.filter(function (o) {
+    return gameObjects.filter(function(o) {
         return o.name === player.name; //gets your playername
     })[0];
 }
@@ -344,7 +331,7 @@ function getClosestPlayer(gameObjects) {
     var otherPlayers = getOtherPlayers(gameObjects, myTeam);
     var closestDistance = Infinity;
     var closestPlayer = void 0;
-    otherPlayers.forEach(function (p) {
+    otherPlayers.forEach(function(p) {
         var d = distance(player.x, player.y, p.x, p.y);
         if (d < closestDistance) {
             closestPlayer = p;
@@ -374,44 +361,38 @@ function aimClosestPlayer() {
     targetChanged = true;
 }
 
-//Drag mod menu
-dragElement(document.getElementById("lh"));
+//UI Catergory Handler
 
-function dragElement(elmnt) {
-    var pos1 = 0,
-        pos2 = 0,
-        pos3 = 0,
-        pos4 = 0;
-    if (document.getElementById(elmnt.id + "header")) {
-        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-    } else {
-        elmnt.onmousedown = dragMouseDown;
-    }
-
-    function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
-    }
-
-    function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
-    }
-
-    function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
-    }
+for (let i = 0; i < sec1buttons.length; i++) {
+    document.getElementById(sec1buttons[i]).checked = false;
 }
+
+document.getElementById(buttons[0]).addEventListener("click", (event) => {
+    document.getElementById(sections[0]).style = "display: block;"
+    document.getElementById(sections[1]).style = "display: none;"
+    document.getElementById(sections[2]).style = "display: none;"
+});
+
+document.getElementById(buttons[1]).addEventListener("click", (event) => {
+    document.getElementById(sections[0]).style = "display: none;"
+    document.getElementById(sections[1]).style = "display: block;"
+    document.getElementById(sections[2]).style = "display: none;"
+});
+
+document.getElementById(buttons[2]).addEventListener("click", (event) => {
+    document.getElementById(sections[0]).style = "display: none;"
+    document.getElementById(sections[1]).style = "display: none;"
+    document.getElementById(sections[2]).style = "display: block;"
+});
+
+document.getElementById(buttons[3]).addEventListener("click", (event) => {
+    document.getElementById(sections[3]).style = "display: none;"
+    document.getElementById(buttons[4]).style = "display: block;padding:7px;cursor:pointer;z-index:10;float:right;background-color:rgb(251 208 7);color:#fff;text-align:center;color:#000;border-radius:10px;height:5px;width:60px;line-height:.5;margin-bottom:10px;box-shadow:0 0 10px 4px rgba(39,39,39,.808); transform: translateY(-720px)"
+});
+
+document.getElementById(buttons[4]).addEventListener("click", (event) => {
+    document.getElementById(buttons[4]).style = "display: none;"
+    document.getElementById(sections[3]).style = "display:block;background:rgba(39,39,39,.808);top:8px;left:1670px;color:rgb(251 208 7);width:270px;height:360px;border-radius:10px;position:absolute;display:inline-block;z-index:10000000;padding-top:10px;line-height:.8;box-shadow:#ffd100 0 0 10px 2px;box-sizing:border-box;border:solid 1px #ffd100;padding:10px;overflow:auto;text-align:justify; padding-left:10px;padding-right:10px;/*transform: translateY(-1200px);*//*position: sticky;*/"
+});
 
 log.info("LoliHub loaded");
